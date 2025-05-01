@@ -1,32 +1,53 @@
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
     margin: 0;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #007bff; /* Azul */
+    border-right: 1px solid #0056b3; /* Un tono de azul más oscuro para el borde */
     padding: 20px;
-    background-color: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    color: white; /* Letras blancas */
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: #fff;
+.sidebar h2 {
+    margin-bottom: 20px;
+    color: white; /* Título en blanco también */
+}
+
+.sidebar .nav-tabs {
+    flex-grow: 1;
+}
+
+.sidebar .nav-link {
+    border: none;
+    border-radius: 0;
+    padding: 10px 15px;
+    text-align: left;
+    color: white; /* Links en blanco */
+}
+
+.sidebar .nav-link.active {
+    background-color: #0056b3; /* Un tono de azul más oscuro para el activo */
+    border-left: 5px solid #bfff00; /* Vivo verde limón más grueso */
+    color: white; /* Texto activo en blanco */
+    font-weight: bold; /* Resaltar el activo */
+}
+
+.content {
+    flex-grow: 1;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-    color: #333;
+.tab-content {
+    margin-top: 20px;
 }
 
-.graph {
-    margin: 30px 0;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-}
-
-.caption {
-    font-style: italic;
-    color: #666;
+.plotly-graph {
+    width: 100%;
+    min-height: 300px;
 }
