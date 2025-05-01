@@ -11,6 +11,7 @@ from io import StringIO
 import subprocess
 import time
 import threading
+import os  # Importar la librería os
 
 app = Flask(__name__)
 
@@ -215,7 +216,7 @@ def task6():
     range_values = list(range(1, 15))
     
     for i in range_values:
-        kmeans = KMeans(n_clusters=i, random_state=42)
+        kmeans = KMeans(n_clusters=i, random_state=42, n_init='auto') # Added n_init for future-proofing
         kmeans.fit(sales_df_scaled)
         scores.append(kmeans.inertia_)
     
@@ -232,7 +233,7 @@ def task7():
     sales_df_scaled = scaler.fit_transform(df)
     
     # Aplicar K-Means con k=5
-    kmeans = KMeans(n_clusters=5, random_state=42)
+    kmeans = KMeans(n_clusters=5, random_state=42, n_init='auto') # Added n_init
     kmeans.fit(sales_df_scaled)
     labels = kmeans.labels_
     
@@ -274,7 +275,7 @@ def task8():
     pca_df = pd.DataFrame(data=principal_comp, columns=['x', 'y', 'z'])
     
     # K-Means para clusters
-    kmeans = KMeans(n_clusters=5, random_state=42)
+    kmeans = KMeans(n_clusters=5, random_state=42, n_init='auto') # Added n_init
     pca_df['cluster'] = kmeans.fit_predict(sales_df_scaled)
     
     # Varianza explicada
@@ -331,8 +332,10 @@ def task9():
     })
 
 if __name__ == '__main__':
-    # Iniciar ngrok en un hilo separado
-    start_ngrok(Config.NGROK_DOMAIN, Config.FLASK_PORT)
-    
-    # Iniciar la aplicación Flask
-    app.run(port=Config.FLASK_PORT, debug=True)
+    port = int(os.environ.get('PORT', 5000)) # Obtener el puerto de la variable de entorno PORT, o usar 5000 como defecto
+    if os.environ.get('PORT'):
+        app.run(host='0.0.0.0', port=port, debug=False) # Para despliegue en plataformas como Heroku
+    else:
+        # Iniciar ngrok solo si no estamos en un entorno de despliegue con puerto asignado
+        start_ngrok(Config.NGROK_DOMAIN, Config.FLASK_PORT)
+        app.run(port=Config.FLASK_PORT, debug=True) # Para desarrollo local
