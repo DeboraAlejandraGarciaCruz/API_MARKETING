@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <aside class="sidebar">
+    <button id="toggleSidebar" class="btn btn-primary position-fixed m-3 z-3" style="z-index:999;"> ☰ </button>
+
+    <aside class="sidebar collapsed" id="sidebar">
         <h2 class="mb-4">Tareas</h2>
         <ul class="nav nav-tabs flex-column" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -39,7 +41,7 @@
         </ul>
     </aside>
 
-    <div class="content">
+    <div class="content" id="mainContent">
         <header class="header text-center py-3 bg-light">
             <div class="container">
                 <h1 class="display-5 fw-bold mb-2">Marketing IA</h1>
@@ -249,5 +251,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/app.js"></script>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        });
+    </script>
+       
 </body>
 </html>
